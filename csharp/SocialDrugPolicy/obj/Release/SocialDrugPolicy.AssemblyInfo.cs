@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SocialDrugPolicy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6309fc29a151d8fd70e16489855216d199cd2e1c")]
 [assembly: System.Reflection.AssemblyProductAttribute("SocialDrugPolicy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SocialDrugPolicy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

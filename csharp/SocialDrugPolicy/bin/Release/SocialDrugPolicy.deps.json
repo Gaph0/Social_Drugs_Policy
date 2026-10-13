@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "SocialDrugPolicy/1.0.0": {
+        "runtime": {
+          "SocialDrugPolicy.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SocialDrugPolicy/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

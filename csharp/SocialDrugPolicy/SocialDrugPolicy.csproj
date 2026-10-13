@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <!-- RimWorld 1.7 runs on the .NET 10 "Waylith" runtime (see
+         RimWorld.runtimeconfig.json) and ships its managed assemblies in the
+         install root instead of RimWorldLinux_Data/Managed. -->
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -9,35 +12,23 @@
     <RootNamespace>SocialDrugPolicy</RootNamespace>
     <DebugType>none</DebugType>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <RimWorldPath>/home/gapho/.steam/debian-installation/steamapps/common/RimWorld</RimWorldPath>
-    <RimWorldManagedPath>$(RimWorldPath)/RimWorldLinux_Data/Managed</RimWorldManagedPath>
-    <SteamModContentFolder>/home/gapho/.steam/debian-installation/steamapps/workshop/content/294100</SteamModContentFolder>
+    <RimWorldPath>/home/gapho/.local/share/Steam/steamapps/common/RimWorld</RimWorldPath>
+    <SteamModContentFolder>/home/gapho/.local/share/Steam/steamapps/workshop/content/294100</SteamModContentFolder>
     <!-- HarmonyLib, taken from the Harmony workshop mod (id 2009463077). RimWorld
-         does not ship a Harmony assembly of its own. -->
-    <HarmonyDll>$(SteamModContentFolder)/2009463077/Current/Assemblies/0Harmony.dll</HarmonyDll>
+         does not ship a Harmony assembly of its own. The 1.7 build is Harmony 3.0. -->
+    <HarmonyDll>$(SteamModContentFolder)/2009463077/1.7/Assemblies/0Harmony.dll</HarmonyDll>
   </PropertyGroup>
 
   <!-- Private=false on every reference: nothing but our own dll may end up in
        the mod's Assemblies folder. -->
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(RimWorldManagedPath)/Assembly-CSharp.dll</HintPath>
+      <HintPath>$(RimWorldPath)/Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(RimWorldManagedPath)/UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>$(RimWorldManagedPath)/UnityEngine.IMGUIModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>$(RimWorldManagedPath)/UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="netstandard">
-      <HintPath>$(RimWorldManagedPath)/netstandard.dll</HintPath>
+    <!-- 1.7 merges the old UnityEngine.*Module assemblies into UnityStubs. -->
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldPath)/UnityStubs.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="0Harmony">

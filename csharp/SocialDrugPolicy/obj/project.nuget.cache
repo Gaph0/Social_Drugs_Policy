@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8qCRmKyIj+s=",
+  "dgSpecHash": "bejJaU3Iyr0=",
   "success": true,
-  "projectFilePath": "/home/gapho/Desktop/Social Drug Policy/csharp/SocialDrugPolicy/SocialDrugPolicy.csproj",
-  "expectedPackageFiles": [
-    "/home/gapho/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.3/microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
-    "/home/gapho/.nuget/packages/microsoft.netframework.referenceassemblies.net48/1.0.3/microsoft.netframework.referenceassemblies.net48.1.0.3.nupkg.sha512"
-  ],
+  "projectFilePath": "/home/gapho/Projects/Social_Drugs_Policy/csharp/SocialDrugPolicy/SocialDrugPolicy.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
