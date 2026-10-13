@@ -1,0 +1,17 @@
+{
+  "author": "Gapho",
+  "build": "build",
+  "evidence": {
+    "compiled": true,
+    "load_tested": false,
+    "references_valid": true,
+    "runtime_tested": false,
+    "syntax_valid": true,
+    "visual_tested": false
+  },
+  "name": "Social Drug Policy",
+  "packageId": "gapho.socialdrugpolicy",
+  "schema": 1,
+  "source": "source",
+  "targetRimWorld": "1.6"
+}

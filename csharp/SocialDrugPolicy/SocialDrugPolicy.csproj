@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>SocialDrugPolicy</AssemblyName>
+    <RootNamespace>SocialDrugPolicy</RootNamespace>
+    <DebugType>none</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RimWorldPath>/home/gapho/.steam/debian-installation/steamapps/common/RimWorld</RimWorldPath>
+    <RimWorldManagedPath>$(RimWorldPath)/RimWorldLinux_Data/Managed</RimWorldManagedPath>
+    <SteamModContentFolder>/home/gapho/.steam/debian-installation/steamapps/workshop/content/294100</SteamModContentFolder>
+    <!-- HarmonyLib, taken from the Harmony workshop mod (id 2009463077). RimWorld
+         does not ship a Harmony assembly of its own. -->
+    <HarmonyDll>$(SteamModContentFolder)/2009463077/Current/Assemblies/0Harmony.dll</HarmonyDll>
+  </PropertyGroup>
+
+  <!-- Private=false on every reference: nothing but our own dll may end up in
+       the mod's Assemblies folder. -->
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldManagedPath)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorldManagedPath)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RimWorldManagedPath)/UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(RimWorldManagedPath)/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>$(RimWorldManagedPath)/netstandard.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(HarmonyDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,63 @@
+{
+  "archive": "/home/gapho/Desktop/Social Drug Policy/build/Social-Drug-Policy.zip",
+  "archive_sha256": "b6b260aa701cca78a0b2417ab8c2d810043e440fd61a424f1a66c939a9a4eff0",
+  "built_unix": 1791597457,
+  "evidence": {
+    "compiled": null,
+    "load_tested": false,
+    "references_valid": true,
+    "runtime_tested": false,
+    "syntax_valid": true,
+    "visual_tested": false
+  },
+  "files": [
+    {
+      "bytes": 1178,
+      "path": "About/About.xml",
+      "sha256": "ffaaf3c0c101341c3e93c61b7eb2cc7f6c688bf676e8d62526e4c8b661473648"
+    },
+    {
+      "bytes": 1212,
+      "path": "About/LICENSE",
+      "sha256": "b5065838cbac452dfc855ba6e6e031481ad2c68406f70d21ead9321374653e6c"
+    },
+    {
+      "bytes": 923735,
+      "path": "About/Preview.png",
+      "sha256": "04723444ac5b743ed71a2e32194100ae6e78d286f1c3010e4e7888adf267e7a4"
+    },
+    {
+      "bytes": 10240,
+      "path": "Assemblies/SocialDrugPolicy.dll",
+      "sha256": "282df12660f16b4811b8405adfc77010230401a4c5cc426f74e53bf7907370a6"
+    },
+    {
+      "bytes": 727,
+      "path": "Languages/English/Keyed/SocialDrugPolicy.xml",
+      "sha256": "ac5d609dbec1e3cd1d71b49d0b8b9477c297105e461b1136e1485d36a59229d7"
+    }
+  ],
+  "mod_root": "/home/gapho/Desktop/Social Drug Policy/build/Social-Drug-Policy",
+  "schema": 1,
+  "validation": {
+    "errors": [],
+    "evidence": {
+      "compiled": null,
+      "load_tested": false,
+      "references_valid": true,
+      "runtime_tested": false,
+      "syntax_valid": true,
+      "visual_tested": false
+    },
+    "note": "Static validation is not RimWorld runtime evidence. Load and gameplay testing remain separate evidence tiers.",
+    "ok": true,
+    "problems": [],
+    "stats": {
+      "defs": 0,
+      "textures_referenced": 0,
+      "xml_files": 0
+    },
+    "warnings": []
+  },
+  "workspace": "/home/gapho/Desktop/Social Drug Policy"
+}

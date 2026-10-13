@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = SocialDrugPolicy
+build_property.ProjectDir = /home/gapho/Desktop/Social Drug Policy/csharp/SocialDrugPolicy/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

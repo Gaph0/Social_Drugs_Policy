@@ -1,0 +1,17 @@
+{
+  "assets": [
+    {
+      "canvas": [
+        640,
+        360
+      ],
+      "id": "mod_preview",
+      "kind": "mod_preview",
+      "notes": "Marketing/manager art, not an in-game sprite. Keep title text optional and legible if used.",
+      "style": "16:9 RimWorld mod-manager preview with readable subject silhouette",
+      "target": "About/Preview.png",
+      "transparent": false
+    }
+  ],
+  "schema": 1
+}

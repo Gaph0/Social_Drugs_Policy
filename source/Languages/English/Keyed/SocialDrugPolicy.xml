@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SDP_AllowSocialDrugs>Allow all social drugs</SDP_AllowSocialDrugs>
+  <SDP_AllowSocialDrugsTip>Allow every social drug for recreation.</SDP_AllowSocialDrugsTip>
+  <SDP_LimitSocialTolerance>Limit social drug tolerance</SDP_LimitSocialTolerance>
+  <SDP_LimitSocialToleranceTip>Only take a social drug while the taker's tolerance is below the smallest tolerance that can cause a new addiction.</SDP_LimitSocialToleranceTip>
+  <SDP_AllowedSocialDrugs>Allowed {0} social drugs for recreation.</SDP_AllowedSocialDrugs>
+  <SDP_LimitsSet>Set the tolerance limit of {0} social drugs.</SDP_LimitsSet>
+  <SDP_NothingToChange>Nothing to change.</SDP_NothingToChange>
+</LanguageData>

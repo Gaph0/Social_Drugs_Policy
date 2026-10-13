@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "copied": [
+        "/home/gapho/Desktop/Social Drug Policy/source/Assemblies/SocialDrugPolicy.dll"
+      ],
+      "exit_code": 0,
+      "project": "/home/gapho/Desktop/Social Drug Policy/csharp/SocialDrugPolicy/SocialDrugPolicy.csproj",
+      "stderr": "",
+      "stdout": "  Determining projects to restore...\n  All projects are up-to-date for restore.\n  SocialDrugPolicy -> /home/gapho/Desktop/Social Drug Policy/csharp/SocialDrugPolicy/bin/Release/SocialDrugPolicy.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:00.58\n"
+    }
+  ]
+}

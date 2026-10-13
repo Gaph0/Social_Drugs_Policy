@@ -1,0 +1,20 @@
+{
+  "errors": [],
+  "evidence": {
+    "compiled": null,
+    "load_tested": false,
+    "references_valid": true,
+    "runtime_tested": false,
+    "syntax_valid": true,
+    "visual_tested": false
+  },
+  "note": "Static validation is not RimWorld runtime evidence. Load and gameplay testing remain separate evidence tiers.",
+  "ok": true,
+  "problems": [],
+  "stats": {
+    "defs": 0,
+    "textures_referenced": 0,
+    "xml_files": 0
+  },
+  "warnings": []
+}
