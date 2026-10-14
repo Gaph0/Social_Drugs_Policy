@@ -1,0 +1,24 @@
+<!-- Copy this file to LocalPaths.props to build against game installs in another
+     location. LocalPaths.props is gitignored. Every property is optional: drop
+     the ones you do not need, the csproj has defaults for all of them. The much
+     used ones usually exist as environment variables you can set for a single
+     build instead, e.g.
+
+       RimWorld17Path=/path/to/RimWorld dotnet build -c Release
+
+     A .NET 10 SDK (or newer) is required; `dotnet build -c Release` builds the
+     1.7 dll and copies it to source/1.7/Assemblies. The 1.6 dll needs a
+     RimWorld 1.6 install and is added to the build automatically when one is
+     found, or when BuildRimWorld16 is set to true. -->
+<Project>
+  <PropertyGroup>
+    <!-- RimWorld 1.7: the managed assemblies sit in the install root. -->
+    <RimWorld17Path>/path/to/steamapps/common/RimWorld</RimWorld17Path>
+    <!-- RimWorld 1.6: the managed assemblies sit in RimWorldLinux_Data/Managed. -->
+    <RimWorld16Path>/path/to/another/steamapps/common/RimWorld</RimWorld16Path>
+    <!-- Workshop folder holding the Harmony mod (id 2009463077). -->
+    <SteamModContentFolder>/path/to/steamapps/workshop/content/294100</SteamModContentFolder>
+    <!-- Force the 1.6 target on/off, whatever installs are present. -->
+    <!-- <BuildRimWorld16>true</BuildRimWorld16> -->
+  </PropertyGroup>
+</Project>

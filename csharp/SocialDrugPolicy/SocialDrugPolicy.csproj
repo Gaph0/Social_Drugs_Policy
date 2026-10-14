@@ -1,40 +1,100 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Game paths for this machine. Copy LocalPaths.props.example to
+       LocalPaths.props to override them (that file is gitignored), pass
+       -p:RimWorld17Path=... on the command line, or set the same names as
+       environment variables. -->
+  <Import Project="LocalPaths.props" Condition="Exists('LocalPaths.props')" />
+
+  <PropertyGroup>
+    <RimWorld16Path Condition="'$(RimWorld16Path)' == ''">$(HOME)/.steam/debian-installation/steamapps/common/RimWorld</RimWorld16Path>
+    <RimWorld17Path Condition="'$(RimWorld17Path)' == ''">$(HOME)/.local/share/Steam/steamapps/common/RimWorld</RimWorld17Path>
+    <SteamModContentFolder Condition="'$(SteamModContentFolder)' == ''">$(HOME)/.local/share/Steam/steamapps/workshop/content/294100</SteamModContentFolder>
+    <!-- 1.6 keeps its managed assemblies in RimWorldLinux_Data/Managed; 1.7
+         ships them in the install root. -->
+    <RimWorld16ManagedPath>$(RimWorld16Path)/RimWorldLinux_Data/Managed</RimWorld16ManagedPath>
+    <!-- Mod tree the built dll is published into. -->
+    <ModTreePath>$(MSBuildProjectDirectory)/../../source</ModTreePath>
+  </PropertyGroup>
+
   <PropertyGroup>
     <!-- RimWorld 1.7 runs on the .NET 10 "Waylith" runtime (see
-         RimWorld.runtimeconfig.json) and ships its managed assemblies in the
-         install root instead of RimWorldLinux_Data/Managed. -->
-    <TargetFramework>net10.0</TargetFramework>
+         RimWorld.runtimeconfig.json) and needs UnityStubs; 1.6 runs on
+         .NET Framework 4.8 and needs the UnityEngine modules. The 1.6 target is
+         added when that install is present (or when BuildRimWorld16 is set), so
+         a machine with only 1.7 builds without extra setup. -->
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(BuildRimWorld16)' == 'true' or Exists('$(RimWorld16ManagedPath)/Assembly-CSharp.dll')">net48;net10.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <AssemblyName>SocialDrugPolicy</AssemblyName>
     <RootNamespace>SocialDrugPolicy</RootNamespace>
     <DebugType>none</DebugType>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <RimWorldPath>/home/gapho/.local/share/Steam/steamapps/common/RimWorld</RimWorldPath>
-    <SteamModContentFolder>/home/gapho/.local/share/Steam/steamapps/workshop/content/294100</SteamModContentFolder>
-    <!-- HarmonyLib, taken from the Harmony workshop mod (id 2009463077). RimWorld
-         does not ship a Harmony assembly of its own. The 1.7 build is Harmony 3.0. -->
-    <HarmonyDll>$(SteamModContentFolder)/2009463077/1.7/Assemblies/0Harmony.dll</HarmonyDll>
+    <!-- The dll is committed as a release artifact, so it cannot embed the
+         revision of the commit it ends up in. -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <!-- Folder inside the mod that LoadFolders.xml points this version at. -->
+    <ModVersionFolder Condition="'$(TargetFramework)' == 'net48'">1.6</ModVersionFolder>
+    <ModVersionFolder Condition="'$(TargetFramework)' == 'net10.0'">1.7</ModVersionFolder>
   </PropertyGroup>
 
   <!-- Private=false on every reference: nothing but our own dll may end up in
        the mod's Assemblies folder. -->
-  <ItemGroup>
+
+  <!-- RimWorld 1.6: .NET Framework 4.8, UnityEngine split into per-module
+       assemblies. HarmonyLib comes from the Harmony workshop mod (id
+       2009463077); RimWorld does not ship a Harmony assembly of its own. 1.6
+       uses the 1.x Harmony build, 1.7 uses Harmony 3.0. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(RimWorldPath)/Assembly-CSharp.dll</HintPath>
+      <HintPath>$(RimWorld16ManagedPath)/Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- 1.7 merges the old UnityEngine.*Module assemblies into UnityStubs. -->
-    <Reference Include="UnityStubs">
-      <HintPath>$(RimWorldPath)/UnityStubs.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorld16ManagedPath)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RimWorld16ManagedPath)/UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(RimWorld16ManagedPath)/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>$(RimWorld16ManagedPath)/netstandard.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="0Harmony">
-      <HintPath>$(HarmonyDll)</HintPath>
+      <HintPath>$(SteamModContentFolder)/2009463077/1.6/Assemblies/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Targeting .NET Framework off Windows needs the reference assemblies. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- RimWorld 1.7: .NET 10, UnityEngine merged into UnityStubs, Harmony 3.0. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorld17Path)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorld17Path)/UnityStubs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(SteamModContentFolder)/2009463077/1.7/Assemblies/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+
+  <!-- The dll belongs in source/<version>/Assemblies, where LoadFolders.xml
+       points RimWorld at. -->
+  <Target Name="CopyDllToModTree" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModTreePath)/$(ModVersionFolder)/Assemblies" />
+  </Target>
 
 </Project>
