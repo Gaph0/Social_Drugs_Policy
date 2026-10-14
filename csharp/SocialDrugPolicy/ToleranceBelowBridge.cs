@@ -14,6 +14,7 @@ namespace SocialDrugPolicy
     /// </summary>
     internal static class ToleranceBelowBridge
     {
+        private const string PackageId = "seohyeon.onlyIfToleranceBelow";
         private const string ApiTypeName = "DrugPolicyEnhanced.ExposedPrepatcherFields";
         private const string SetterName = "Set_OnlyIfToleranceBelow";
         private const string GetterName = "Get_OnlyIfToleranceBelow";
@@ -36,7 +37,9 @@ namespace SocialDrugPolicy
                         setter = api.GetMethod(SetterName, BindingFlags.Public | BindingFlags.Static);
                         getter = api.GetMethod(GetterName, BindingFlags.Public | BindingFlags.Static);
                     }
-                    if (setter == null)
+                    // Only worth a warning when the mod that provides the api is
+                    // loaded: without the mod the button is expected to be hidden.
+                    if (setter == null && ModsConfig.IsActive(PackageId))
                     {
                         Log.Warning("[Social Drug Policy] Cannot find " + ApiTypeName + "." + SetterName
                             + ", so the tolerance-limit button is hidden. The mod \"Only If 'Tolerance'"
