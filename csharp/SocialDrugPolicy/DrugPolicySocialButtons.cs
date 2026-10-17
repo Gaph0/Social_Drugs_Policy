@@ -7,24 +7,26 @@ using Verse;
 namespace SocialDrugPolicy
 {
     /// <summary>
-    /// Adds two buttons above the drug table of the drug policy window: one allows
-    /// every Social drug for recreation, one sets the "only if tolerance below"
-    /// limit of every Social drug to that drug's minimum tolerance for addiction.
+    /// Adds two buttons at the bottom of the drug policy window, beside the Close
+    /// button: one allows every Social drug for recreation, one sets the "only if
+    /// tolerance below" limit of every Social drug to that drug's minimum tolerance
+    /// for addiction.
     /// </summary>
     /// <remarks>
-    /// The strip we draw in is empty in the vanilla window: Dialog_ManagePolicies
-    /// prints "Available policies" over the left 200 pixels of it and the drug table
-    /// starts right underneath. Its height and position follow from the dialog's own
-    /// numbers, so nothing needs to be moved out of the way.
+    /// Dialog_ManagePolicies draws the policy name and its dismiss, copy, rename and
+    /// make-default icons in the strip above the table, so that strip is not free.
+    /// The only space no vanilla widget occupies is the row the Close button sits in:
+    /// the base dialog ends the contents rect 10 pixels above CloseButSize and the
+    /// Close button is centred, leaving the right end of that row empty.
     /// </remarks>
     [HarmonyPatch(typeof(Dialog_ManageDrugPolicies), "DoContentsRect")]
     internal static class Patch_Dialog_ManageDrugPolicies_DoContentsRect
     {
-        private const float AvailablePoliciesRowHeight = 32f;
-        private const float ColumnLabelRowHeight = 36f;
-        private const float GapAboveTable = 4f;
+        private const float ButtonHeight = 32f;
         private const float GapBetweenButtons = 8f;
         private const float ButtonPadding = 24f;
+        // Distance from the bottom of the table into the row that holds Close.
+        private const float GapBelowTable = 12f;
 
         private static readonly MethodInfo SelectedPolicyGetter =
             AccessTools.PropertyGetter(typeof(Dialog_ManageDrugPolicies), "SelectedPolicy");
@@ -47,20 +49,18 @@ namespace SocialDrugPolicy
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleCenter;
 
-            Rect row = new Rect(
-                rect.x,
-                rect.y - GapAboveTable - ColumnLabelRowHeight - AvailablePoliciesRowHeight,
-                rect.width,
-                AvailablePoliciesRowHeight);
-
             float allowWidth = Text.CalcSize(allowLabel).x + ButtonPadding;
-            Rect allowRect = new Rect(row.xMax - allowWidth, row.y, allowWidth, row.height);
+
+            // Right-align the pair with the drug table, in the empty half of the row
+            // that holds the Close button.
+            float rowY = rect.yMax + GapBelowTable;
+            Rect allowRect = new Rect(rect.xMax - allowWidth, rowY, allowWidth, ButtonHeight);
             Rect toleranceRect = default(Rect);
             if (showToleranceButton)
             {
                 float toleranceWidth = Text.CalcSize(toleranceLabel).x + ButtonPadding;
                 toleranceRect = new Rect(
-                    allowRect.x - GapBetweenButtons - toleranceWidth, row.y, toleranceWidth, row.height);
+                    allowRect.x - GapBetweenButtons - toleranceWidth, rowY, toleranceWidth, ButtonHeight);
             }
 
             if (Widgets.ButtonText(allowRect, allowLabel))
